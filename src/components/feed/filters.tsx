@@ -56,7 +56,7 @@ export function FeedFilters({ filter, setFilter }: FeedFiltersProps) {
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-[200px] justify-between"
+          className="w-[220px] justify-between"
         >
           {filter
             ? options.find((option) => option.value === filter)?.label
@@ -64,7 +64,7 @@ export function FeedFilters({ filter, setFilter }: FeedFiltersProps) {
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[200px] p-0">
+      <PopoverContent className="w-[220px] p-0">
         <Command>
           <CommandInput placeholder="Search filters..." />
           <CommandEmpty>No filter found.</CommandEmpty>
