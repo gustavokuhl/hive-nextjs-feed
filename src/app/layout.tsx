@@ -3,6 +3,7 @@ import { cn } from "@/lib/utils"
 import type { Metadata } from "next"
 import { Inter as FontSans } from "next/font/google"
 
+import Navbar from "@/components/navbar"
 import "@/styles/globals.css"
 
 export const fontSans = FontSans({
@@ -34,7 +35,10 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <main className="max-w-[700px] mx-auto min-h-screen">
+            <Navbar />
+            {children}
+          </main>
         </ThemeProvider>
       </body>
     </html>
