@@ -1,15 +1,9 @@
 import { ThemeProvider } from "@/components/theme-provider"
-import { cn } from "@/lib/utils"
+import { cn, fontSans } from "@/lib/utils"
 import type { Metadata } from "next"
-import { Inter as FontSans } from "next/font/google"
 
 import Navbar from "@/components/navbar"
 import "@/styles/globals.css"
-
-export const fontSans = FontSans({
-  subsets: ["latin"],
-  variable: "--font-sans",
-})
 
 export const metadata: Metadata = {
   title: "Create Next App",
