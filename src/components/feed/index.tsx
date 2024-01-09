@@ -1,27 +1,31 @@
 "use client"
 
 import HiveClient from "@/lib/hive-client"
-import { DiscussionQueryCategory } from "@hiveio/dhive"
+import { Discussion, DiscussionQueryCategory } from "@hiveio/dhive"
 import { useState } from "react"
 import useSWR from "swr"
 import { FeedFilters } from "./filters"
 
 const client = HiveClient
 
-async function fetchPosts(filter: string, tag: string | null) {
+async function fetchPosts(filter: string, tag: string) {
+  if (!filter) return [] as Discussion[]
+
   const options = {
     limit: 100,
     ...(tag && { tag: tag }),
   }
 
-  return await client.database.getDiscussions(
+  const posts = await client.database.getDiscussions(
     filter as DiscussionQueryCategory,
     options
   )
+
+  return posts
 }
 
 export default function Feed() {
-  const [filter, setFilter] = useState("trending")
+  const [filter, setFilter] = useState("")
   const [tag, setTag] = useState("")
 
   const queryKey = ["discussions", filter, tag]
@@ -29,7 +33,17 @@ export default function Feed() {
     data: posts,
     isLoading,
     error,
-  } = useSWR(queryKey, async () => await fetchPosts(filter, tag))
+  } = useSWR(queryKey, async () => await fetchPosts(filter, tag), {
+    shouldRetryOnError: false,
+  })
+
+  let errorMessage = ""
+  if (error) {
+    console.log(error)
+    if (typeof error?.jse_info === "object") {
+      errorMessage = Object.values(error.jse_info).join("")
+    }
+  }
 
   return (
     <div className="p-2">
@@ -42,13 +56,15 @@ export default function Feed() {
       {isLoading ? (
         <p>Loading...</p>
       ) : (
-        <ul>
-          {posts?.map((post) => {
-            return <li key={post.id}>{post.title}</li>
-          })}
-        </ul>
+        posts && (
+          <ul>
+            {posts?.map((post) => {
+              return <li key={post.id}>{post.title}</li>
+            })}
+          </ul>
+        )
       )}
-      {error && <p>{error}</p>}
+      {error && <p>{errorMessage ?? error.message}</p>}
     </div>
   )
 }

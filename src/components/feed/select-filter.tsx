@@ -1,5 +1,3 @@
-"use client"
-
 import {
   Select,
   SelectContent,
@@ -13,24 +11,16 @@ import { Dispatch, SetStateAction } from "react"
 
 const options = [
   {
+    value: "created",
+    label: "Created",
+  },
+  {
     value: "trending",
     label: "Trending",
   },
   {
     value: "hot",
     label: "Hot",
-  },
-  {
-    value: "new",
-    label: "New",
-  },
-  {
-    value: "active",
-    label: "Active",
-  },
-  {
-    value: "promoted",
-    label: "Promoted",
   },
 ]
 
@@ -43,17 +33,13 @@ export function SelectFilter({ filter, setFilter }: SelectFilterProps) {
   return (
     <Select onValueChange={(value) => setFilter(value)} defaultValue={filter}>
       <SelectTrigger className="w-[180px]">
-        <SelectValue placeholder="Select a fruit" />
+        <SelectValue placeholder="Select a filter" />
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
-          <SelectLabel>Fruits</SelectLabel>
+          <SelectLabel>Filters</SelectLabel>
           {options.map((option) => (
-            <SelectItem
-              key={option.value}
-              // onClick={() => setFilter(option.value)}
-              value={option.value}
-            >
+            <SelectItem key={option.value} value={option.value}>
               {option.label}
             </SelectItem>
           ))}
