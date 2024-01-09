@@ -14,15 +14,15 @@ export function FeedFilters({
   setTag,
 }: SelectFilterProps & TagFilterProps) {
   return (
-    <div className="p-2 gap-2 max-w-[240px]">
+    <div className="pb-4 pt-0 gap-2 w-full flex">
       <div>
-        <h2 className="mt-2 mb-1 scroll-m-20 text-lg font-semibold tracking-tight">
+        <h2 className="mt-2 mb-1 scroll-m-20 text-md font-semibold tracking-tight">
           Filters
         </h2>
         <SelectFilter filter={filter} setFilter={setFilter} />
       </div>
       <div>
-        <h2 className="mt-2 mb-1 scroll-m-20 text-lg font-semibold tracking-tight">
+        <h2 className="mt-2 mb-1 scroll-m-20 text-md font-semibold tracking-tight">
           Tag
         </h2>
         <Input

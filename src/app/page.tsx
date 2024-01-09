@@ -1,7 +1,5 @@
-"use client"
-
 import Feed from "@/components/feed"
 
-export default function Home() {
+export default async function Home() {
   return <Feed />
 }
